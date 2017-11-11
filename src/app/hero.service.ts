@@ -1,16 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
+import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class HeroService {
-  getHeroes(): Promise<Hero[]> {
-    return Promise.resolve(HEROES);
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  private heroesUrl = 'api/heroes';  // URL to web api
+
+  getHeroes (): Observable<Hero[]> {
+    return this.http.get<Hero[]>(this.heroesUrl);
   }
 
-  getHero(id: number): Promise<Hero> {
-    return this.getHeroes()
-      .then(heroes => heroes.find(hero => hero.id === id));
+  getHero(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get<Hero>(url).pipe(
+
+    );
   }
 }
