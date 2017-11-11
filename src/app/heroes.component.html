@@ -3,6 +3,18 @@
 
 
 <h2>My Heroes</h2>
+
+<!-- Добавить героя -->
+<div>
+  <label>Hero name:
+    <input #heroName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(heroName.value); heroName.value=''">
+    add hero
+  </button>
+</div>
+
 <ul class="heroes">
   <li *ngFor="let hero of heroes"
       (click)="onSelect(hero)"
@@ -10,6 +22,7 @@
     <span class="badge">{{hero.id}}</span> {{hero.name}}
   </li>
 </ul>
+
 <div *ngIf="selectedHero">
   <h2>
     {{selectedHero.name | uppercase}} is the chosen one   <!-- pipe не нужен -->
