@@ -26,12 +26,17 @@ export class HeroesComponent implements OnInit {
   }
 
   add(name: string): void {
-    name = name.trim();
+    name = name.trim();     // Removes the leading and trailing white space and line terminator characters from a string
     if (!name) { return; }
     this.heroService.addHero({ name } as Hero)
       .subscribe(hero => {
         this.heroes.push(hero);
       });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 
   ngOnInit(): void {
